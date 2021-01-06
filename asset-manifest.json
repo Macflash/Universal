@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/universal/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/universal/static/js/main.a1c76538.chunk.js",
+    "main.js.map": "/universal/static/js/main.a1c76538.chunk.js.map",
+    "runtime-main.js": "/universal/static/js/runtime-main.0d014e59.js",
+    "runtime-main.js.map": "/universal/static/js/runtime-main.0d014e59.js.map",
+    "static/js/2.407d7650.chunk.js": "/universal/static/js/2.407d7650.chunk.js",
+    "static/js/2.407d7650.chunk.js.map": "/universal/static/js/2.407d7650.chunk.js.map",
+    "static/js/3.de797f75.chunk.js": "/universal/static/js/3.de797f75.chunk.js",
+    "static/js/3.de797f75.chunk.js.map": "/universal/static/js/3.de797f75.chunk.js.map",
+    "index.html": "/universal/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/universal/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.407d7650.chunk.js.LICENSE.txt": "/universal/static/js/2.407d7650.chunk.js.LICENSE.txt",
+    "static/media/earthimg.eeca67e5.png": "/universal/static/media/earthimg.eeca67e5.png",
+    "static/media/mercuryimg.d800f48b.png": "/universal/static/media/mercuryimg.d800f48b.png",
+    "static/media/moonimg.d38055fa.png": "/universal/static/media/moonimg.d38055fa.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0d014e59.js",
+    "static/js/2.407d7650.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.a1c76538.chunk.js"
+  ]
+}
