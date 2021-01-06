@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { EarthStage, ManufacturingQueue, ProbeQueue, ResearchQueue, TelescopeQueue } from './stages/EarthStage';
+import { EarthManufacturing, EarthStage, ManufacturingQueue, ProbeQueue, Probes, ResearchQueue, ResearchStore, TelescopeQueue } from './stages/EarthStage';
 import { Tabs } from './components/tabs';
 import { GalaxyContainer } from './simplified/galaxy';
 import { ProbeContainer } from './simplified/probe';
@@ -92,7 +92,8 @@ function App() {
       <div style={{ marginBottom: 5 }}>Budget: {ROUND(budget)} billion 📈</div>
       <Tabs
         tabs={[
-          { title: "Earth", content: <EarthStage /> },
+          { title: "Space center", content: <><Probes/><EarthManufacturing /></>},
+          { title: "Research center", content: <ResearchStore /> },
           { title: "Solar System", content: <SolarSystem star={Sun} /> },
           { title: "Milky Way", content: galaxyStuff, locked: true },
         ]}

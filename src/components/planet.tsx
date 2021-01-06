@@ -69,8 +69,7 @@ export function ResearchStat({ name, unit, stat, studied = true }: { stat?: stri
 }
 
 export function PlanetView({ planet }: { planet: Planet }) {
-    let [name] = React.useState(planet.name || createName());
-
+    let name = planet.name;
     if (!planet.research || !planet.research.discovered) {
         name = "Undiscovered object";
     }

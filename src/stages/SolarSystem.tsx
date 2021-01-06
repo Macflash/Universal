@@ -7,6 +7,7 @@ import { ResearchOption } from "./EarthStage";
 import mercuryimg from "../images/mercuryimg.png";
 import earthimg from "../images/earthimg.png";
 import moonimg from "../images/moonimg.png";
+import { Tabs } from "../components/tabs";
 
 export const Mercury: Planet = {
     name: "Mercury",
@@ -176,12 +177,19 @@ export function SolarSystem(props: { star: Star }) {
         <div style={{ position: "relative" }}>
             <System star={props.star} />
         </div>
-        <PlanetView planet={props.star as any} />
 
-        {props.star.planets.map(p =>
-            <PlanetView planet={p} />
-
-        )}
+        <Tabs tabs={
+            [
+                {
+                    title: "Sun",
+                    content: <PlanetView planet={props.star as any} />
+                } ,
+                ...props.star.planets.map(p => ({
+                    title: p.name || "Unknown object",
+                    content: <PlanetView planet={p} />
+                }))
+            ]
+        } />
 
     </div>
 }

@@ -5,9 +5,10 @@ import { PlanetView, StatRow } from '../components/planet';
 import { Task, TaskQueue } from '../stuff/tasks';
 import { Section } from '../components/section';
 import { QueuedBlockingAction } from '../components/action';
+import { MONTH } from '../setter';
 
 // manufacturing can only do 1 thing at a time globally
-export const ManufacturingQueue = new TaskQueue(1,1);
+export const ManufacturingQueue = new TaskQueue(1, 1);
 
 // research queue can do one of each at a time
 export const ResearchQueue = new TaskQueue(1);
@@ -16,7 +17,7 @@ export const ResearchQueue = new TaskQueue(1);
 export const ProbeQueue = new TaskQueue();
 
 // telescope can only do 1 thing at a time!
-export const TelescopeQueue = new TaskQueue(1,1);
+export const TelescopeQueue = new TaskQueue(1, 1);
 
 export function EarthStage(props: {}) {
     return <Section title="Earth">
@@ -33,23 +34,41 @@ export function EarthStage(props: {}) {
 
 export function Probes(props: {}) {
     return <Section title="Inventory">
-        Probes available: {Earth.availableProbes.length} 🛰️
+        <div>
+            Ground telescopes available: {Earth.availableTelescopes?.filter(t => t.type == 'ground').length || 0} 🔭
+        </div>
+        <div>
+            Probes available: {Earth.availableProbes.length} 🛰️
+        </div>
     </Section>
 }
 
 export function EarthManufacturing(props: {}) {
     // manufacturing has say... some fixed number of slots that can be used
     return <Section title="Manufacture">
-        <QueuedBlockingAction
-            name="Space probe"
-            description="Build a probe that you can launch to other planets to perform research."
-            money={1}
-            time={1}
-            queue={ManufacturingQueue}
-            onComplete={() => {
-                Earth.availableProbes.push({ manufactureDate: Year.current });
-            }}
-        />
+        {!Earth.availableTelescopes?.filter(t => t.type == 'ground').length ?
+            <QueuedBlockingAction
+                name="Ground telescope"
+                description="Build a telescope on Earth to allow you to look at distant objects."
+                money={1}
+                time={2 * MONTH}
+                queue={ManufacturingQueue}
+                onComplete={() => {
+                    Earth.availableTelescopes = Earth.availableTelescopes || [];
+                    Earth.availableTelescopes!.push({ manufactureDate: Year.current, condition: 1, type: "ground", quality: "blurry" });
+                }}
+            /> :
+            <QueuedBlockingAction
+                name="Space probe"
+                description="Build a probe that you can launch to other planets to perform research."
+                money={1}
+                time={1}
+                queue={ManufacturingQueue}
+                onComplete={() => {
+                    Earth.availableProbes.push({ manufactureDate: Year.current });
+                }}
+            />
+        }
     </Section>
 }
 
