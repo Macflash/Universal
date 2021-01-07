@@ -186,7 +186,10 @@ export function SolarSystem(props: { star: Star }) {
                 } ,
                 ...props.star.planets.map(p => ({
                     title: p.name && p.research?.discovered ? p.name :"?",
-                    content: <PlanetView planet={p} />
+                    content: <div>
+                        <PlanetView planet={p} />
+                        
+                    </div>
                 }))
             ]
         } />

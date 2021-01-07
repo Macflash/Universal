@@ -1,12 +1,14 @@
 import React from 'react';
 import './App.css';
-import { EarthManufacturing, EarthStage, ManufacturingQueue, ProbeQueue, Probes, ResearchQueue, ResearchStore, TelescopeQueue } from './stages/EarthStage';
 import { Tabs } from './components/tabs';
 import { GalaxyContainer } from './simplified/galaxy';
 import { ProbeContainer } from './simplified/probe';
 import { SolarSystem, Sun } from './stages/SolarSystem';
 import { ROUND } from './stuff/universe';
 import { Budget, Money, Research, Year } from './Resources';
+import { EarthManufacturing, ResearchStore, Probes } from './stages/EarthStage';
+import { ResearchQueue, ManufacturingQueue, ProbeQueue, TelescopeQueue } from './stuff/tasks';
+import { GroundTelescope, InterstellarTravel } from './stuff/tech';
 
 const TechTree = new ProbeContainer();
 const MilkyWay = new GalaxyContainer(100000000000, 2000, TechTree);
@@ -92,10 +94,10 @@ function App() {
       <div style={{ marginBottom: 5 }}>Budget: {ROUND(budget)} billion 📈</div>
       <Tabs
         tabs={[
-          { title: "Space center", content: <><Probes/><EarthManufacturing /></>},
-          { title: "Research center", content: <ResearchStore /> },
-          { title: "Solar System", content: <SolarSystem star={Sun} /> },
-          { title: "Milky Way", content: galaxyStuff, locked: true },
+          { title: "Research", content: <ResearchStore /> },
+          { title: "Build", content: <><Probes /><EarthManufacturing /></>, requires: GroundTelescope },
+          { title: "Solar System", content: <SolarSystem star={Sun} />, requires: GroundTelescope },
+          { title: "Milky Way", content: galaxyStuff, requires: InterstellarTravel },
         ]}
       />
 

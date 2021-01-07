@@ -31,7 +31,7 @@ export class Setter {
         this.onChange(this.value);
     }
 
-    Subtract(v: number) {
+    Subtract(v: number) { 
         this.value -= v;
         this.onChange(this.value);
     }

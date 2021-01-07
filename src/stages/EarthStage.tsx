@@ -2,22 +2,11 @@ import React from 'react';
 import { Earth } from './SolarSystem';
 import { Budget, Money, Research, Year } from '../Resources';
 import { PlanetView, StatRow } from '../components/planet';
-import { Task, TaskQueue } from '../stuff/tasks';
+import { ManufacturingQueue, ResearchQueue, Task, TaskQueue } from '../stuff/tasks';
 import { Section } from '../components/section';
 import { QueuedBlockingAction } from '../components/action';
 import { MONTH } from '../setter';
-
-// manufacturing can only do 1 thing at a time globally
-export const ManufacturingQueue = new TaskQueue(1, 1);
-
-// research queue can do one of each at a time
-export const ResearchQueue = new TaskQueue(1);
-
-// probe queue can do all of the things
-export const ProbeQueue = new TaskQueue();
-
-// telescope can only do 1 thing at a time!
-export const TelescopeQueue = new TaskQueue(1, 1);
+import { Tech } from '../stuff/tech';
 
 export function EarthStage(props: {}) {
     return <Section title="Earth">
@@ -76,7 +65,7 @@ export function EarthManufacturing(props: {}) {
 // so we should have like a STORE
 
 export function ResearchStore(props: {}) {
-    return <Section title="Research">
+    const moneyStuff = <>
         <QueuedBlockingAction
             name="Raise funds"
             description={`Raise ${1} billion 💲`}
@@ -95,6 +84,15 @@ export function ResearchStore(props: {}) {
             queue={ResearchQueue}
             onComplete={() => { Budget.Add(.1); }}
         />
+    </>;
+    return <Section title="Research">
+        {Tech.All.filter(tech => tech.canBuy && !tech.unlocked).map(tech => <QueuedBlockingAction
+            name={tech.id}
+            onComplete={() => { tech.unlock() }}
+            queue={ResearchQueue}
+            time={tech.researchTime}
+            research={tech.researchCost}
+        />)}
     </Section>
 }
 

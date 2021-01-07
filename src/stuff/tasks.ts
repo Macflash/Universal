@@ -93,3 +93,15 @@ export class TaskQueue {
         return this.queue.filter(t => t.id === id)
     }
 }
+
+// manufacturing can only do 1 thing at a time globally
+export const ManufacturingQueue = new TaskQueue(1, 1);
+
+// research queue can do one of each at a time
+export const ResearchQueue = new TaskQueue(1);
+
+// probe queue can do all of the things
+export const ProbeQueue = new TaskQueue();
+
+// telescope can only do 1 thing at a time!
+export const TelescopeQueue = new TaskQueue(1, 1);

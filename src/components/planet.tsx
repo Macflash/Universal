@@ -1,8 +1,8 @@
 import React from 'react';
 import { Research, R_ICON } from '../Resources';
 import { MONTH } from '../setter';
-import { TelescopeQueue } from '../stages/EarthStage';
 import { PlanetResearch } from '../stages/SolarSystem';
+import { TelescopeQueue } from '../stuff/tasks';
 import { Planet, ROUND, SpaceObject } from '../stuff/universe';
 import { QueuedBlockingAction } from './action';
 import { BallView } from './ball';

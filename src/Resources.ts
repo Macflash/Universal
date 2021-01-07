@@ -1,6 +1,6 @@
 import { DateSetter, Setter } from "./setter";
-import { ManufacturingQueue, ProbeQueue, ResearchQueue, TelescopeQueue } from "./stages/EarthStage";
 import { Sun } from "./stages/SolarSystem";
+import { ManufacturingQueue, ResearchQueue, TelescopeQueue, ProbeQueue } from "./stuff/tasks";
 
 export const Y_ICON = '📅';
 export const R_ICON = '🧪';
