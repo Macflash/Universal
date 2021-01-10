@@ -48,15 +48,16 @@ export const TaskProgressBar: React.FC<{ task: Task }> = props => {
     </div>
 }
 
-interface QueuedBlockingActionProps extends Omit<SimpleActionProps, 'onBuy'> {
-    onComplete: () => void,
+interface QueuedBlockingActionProps<T> extends Omit<SimpleActionProps, 'onBuy'> {
+    onStart?: () => T | undefined,
+    onComplete: (data?: T) => void,
     time: number,
     queue: TaskQueue,
     limitPerId?: number,
     limitPerQueue?: number,
 }
 
-export function QueuedBlockingAction(props: QueuedBlockingActionProps) {
+export function QueuedBlockingAction<T>(props: QueuedBlockingActionProps<T>) {
 
     // blocking can be some max # in the entire QUEUE
     // or blocking can be some max # per unique ID/action in the QUEUE.
@@ -77,8 +78,9 @@ export function QueuedBlockingAction(props: QueuedBlockingActionProps) {
         {...props}
         blocked={blocked}
         onBuy={() => {
+            const data = props.onStart?.();
             return props.queue.push(
-                new Task(props.name, Year.current, Year.current + props.time, props.onComplete)
+                new Task(props.name, Year.current, Year.current + props.time, () => props.onComplete(data))
             );
         }}
     >

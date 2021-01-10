@@ -37,6 +37,7 @@ export class Setter {
     }
 }
 
+export const DAY = 1/365;
 export const MONTH = 1/12;
 export class DateSetter extends Setter {
     static Months = [

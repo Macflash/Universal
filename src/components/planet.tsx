@@ -1,8 +1,8 @@
 import React from 'react';
 import { Research, R_ICON } from '../Resources';
 import { MONTH } from '../setter';
-import { PlanetResearch } from '../stages/SolarSystem';
-import { TelescopeQueue } from '../stuff/tasks';
+import { Earth, PlanetResearch } from '../stages/SolarSystem';
+import { ProbeQueue, TelescopeQueue } from '../stuff/tasks';
 import { Planet, ROUND, SpaceObject } from '../stuff/universe';
 import { QueuedBlockingAction } from './action';
 import { BallView } from './ball';
@@ -90,7 +90,26 @@ export function PlanetView({ planet }: { planet: Planet }) {
             </div>
 
             {planet.research?.discovered || planet.research?.studied === "none" ?
-                "discovered"
+                <QueuedBlockingAction
+                    name={`Launch satellite to ${planet.name}`}
+                    description={`Launch a satellite to be able to do research around ${planet.name} from orbit.`}
+                    queue={ProbeQueue}
+                    blocked={Earth.availableProbes.length >= 1 ? undefined : "No available probes"}
+                    time={Math.abs(planet.distance - Earth.distance) / 8.76e7}
+                    buyText="Launch"
+                    onStart={() => {
+                        const probe = Earth.availableProbes.pop();
+                        if (!probe) { throw "hey no probe!"; }
+                        planet.incomingProbes.push(probe);
+                        return probe;
+                    }}
+                    onComplete={(probe) => {
+                        if (!probe) { throw "HEY! No probe!"; }
+                        Research.Add(1);
+                        planet.availableProbes.push(probe!);
+                        planet.incomingProbes = planet.incomingProbes.filter(p => p !== probe);
+                    }}
+                />
                 :
                 <QueuedBlockingAction
                     name={`Study ${planet.name || name}`}
@@ -106,6 +125,7 @@ export function PlanetView({ planet }: { planet: Planet }) {
                     }}
                 />
             }
+
         </Block>
     );
 }

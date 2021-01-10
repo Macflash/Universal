@@ -46,12 +46,26 @@ export class Task {
 }
 
 export class TaskQueue {
+    private static All: TaskQueue[] = [];
+    static UpdateAll(year: number) {
+        for (const tq of TaskQueue.All) {
+            tq.update(year);
+        }
+    }
+    static RegisterAll(callback: () => void) {
+        for (const tq of TaskQueue.All) {
+            tq.Register(callback);
+        }
+    }
+
     private queue: Task[] = [];
 
     // TODO: control how these can be modified
-    constructor(public limitPerId?: number, public limitPerQueue?: number) { }
+    constructor(public limitPerId?: number, public limitPerQueue?: number) {
+        TaskQueue.All.push(this);
+    }
 
-    private onChange = () => {};
+    private onChange = () => { };
     Register(onchange: () => void) {
         this.onChange = onchange;
     }
