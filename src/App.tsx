@@ -10,6 +10,7 @@ import { EarthManufacturing, ResearchStore, Probes } from './stages/EarthStage';
 import { TaskQueue } from './stuff/tasks';
 import { GroundTelescope, InterstellarTravel } from './stuff/tech';
 import { MONTH } from './setter';
+import { Galaxy } from './components/galaxy';
 
 const TechTree = new ProbeContainer();
 const MilkyWay = new GalaxyContainer(100000000000, 2000, TechTree);
@@ -115,6 +116,7 @@ function App() {
           { title: "Milky Way", content: galaxyStuff, requires: InterstellarTravel },
         ]}
       />
+      <Galaxy/>
 
     </div>
   );

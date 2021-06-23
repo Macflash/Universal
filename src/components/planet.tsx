@@ -89,6 +89,8 @@ export function PlanetView({ planet }: { planet: Planet }) {
 
             </div>
 
+            <div>Satellites around planet: {planet.availableProbes.length}</div>
+
             {planet.research?.discovered || planet.research?.studied === "none" ?
                 <QueuedBlockingAction
                     name={`Launch satellite to ${planet.name}`}

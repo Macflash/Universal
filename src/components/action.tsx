@@ -62,7 +62,7 @@ export function QueuedBlockingAction<T>(props: QueuedBlockingActionProps<T>) {
     // blocking can be some max # in the entire QUEUE
     // or blocking can be some max # per unique ID/action in the QUEUE.
     // for now lets do per QUEUE and per action
-    let blocked: string | undefined = undefined;
+    let blocked: string | undefined = props.blocked;
     if (props.queue.limitPerQueue) {
         if (props.queue.length >= props.queue.limitPerQueue) {
             blocked = "Queue is full.";
